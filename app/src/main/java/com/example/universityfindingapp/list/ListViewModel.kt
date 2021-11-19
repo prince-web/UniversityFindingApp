@@ -47,21 +47,23 @@ class ListViewModel : ViewModel() {
 
     private fun getUniversityListProperties() {
 
-        coroutineScope.launch {  }
-        //enque will start an request in the background thread
-        UniversityApi.retrofitService.getProperties().enqueue(object: Callback<List<UniversityProperty>>{
-            override fun onFailure(call: Call<List<UniversityProperty>>, t: Throwable) {
+        coroutineScope.launch {
+            var getPropertyDeferrd = UniversityApi.retrofitService.getProperties()
+
+            try {
+                var listResult = getPropertyDeferrd.await()
+                _response.value = "Success: ${listResult.size} University Properties retrieved"
+            }catch (t:Throwable){
                 _response.value = "Failure" + t.message
             }
+        }
 
-            override fun onResponse(
-                call: Call<List<UniversityProperty>>,
-                response: Response<List<UniversityProperty>>
-            ) {
-               _response.value = "Success: ${response.body()?.size} University Properties retrieved"
-            }
 
-        })
-       // _response.value = "Set the Api"
+
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
     }
 }
