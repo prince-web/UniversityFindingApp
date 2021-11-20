@@ -22,6 +22,14 @@ fun bindCollegeList(textView: TextView,collegeName:String?){
         textView.text = "$collegeName"
     }
 }
+@BindingAdapter("websites")
+fun bindWebsiteList(textView: TextView,website:Array<String>){
+    for (i in website){
+        textView.text = "$i"
+    }
+}
+
+
 
 @BindingAdapter("universityApiStatus")
 fun bindStatus(statusImageView:ImageView,status:UniversityApiStatus?){
