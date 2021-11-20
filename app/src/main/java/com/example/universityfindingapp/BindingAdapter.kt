@@ -29,6 +29,14 @@ fun bindWebsiteList(textView: TextView,website:Array<String>){
     }
 }
 
+@BindingAdapter("domains")
+fun bindDomainList(textView: TextView,domain:Array<String>){
+    for (i in domain){
+        textView.text = "$i"
+    }
+}
+
+
 
 
 @BindingAdapter("universityApiStatus")
