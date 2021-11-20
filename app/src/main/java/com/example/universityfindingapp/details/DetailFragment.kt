@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.example.universityfindingapp.R
 import com.example.universityfindingapp.databinding.FragmentDetailBinding
 
@@ -22,7 +24,11 @@ class DetailFragment : Fragment() {
         val binding :FragmentDetailBinding= DataBindingUtil.inflate(inflater,R.layout.fragment_detail,container,false)
         binding.lifecycleOwner = this
 
+        val universityProperty = DetailFragmentArgs.fromBundle(requireArguments()).selectedProperty
 
+        val viewModelFactory = DetailViewModelFactory(universityProperty, application)
+
+        binding.viewModel = ViewModelProvider(this,viewModelFactory)[DetailViewModel::class.java]
         return binding.root
     }
 

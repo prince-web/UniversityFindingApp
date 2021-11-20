@@ -3,9 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/princ/AndroidStudioProjects/UniversityFindingApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/princ/AndroidStudioProjects/UniversityFindingApp/app/src/main/res/drawable-v24/loading_img.xml" value="0.1" />
         <entry key="..\:/Users/princ/AndroidStudioProjects/UniversityFindingApp/app/src/main/res/layout/activity_main.xml" value="0.10555555555555556" />
-        <entry key="..\:/Users/princ/AndroidStudioProjects/UniversityFindingApp/app/src/main/res/layout/fragment_detail.xml" value="0.1" />
-        <entry key="..\:/Users/princ/AndroidStudioProjects/UniversityFindingApp/app/src/main/res/layout/fragment_list.xml" value="0.152" />
+        <entry key="..\:/Users/princ/AndroidStudioProjects/UniversityFindingApp/app/src/main/res/layout/fragment_detail.xml" value="0.2" />
+        <entry key="..\:/Users/princ/AndroidStudioProjects/UniversityFindingApp/app/src/main/res/layout/fragment_list.xml" value="0.2" />
         <entry key="..\:/Users/princ/AndroidStudioProjects/UniversityFindingApp/app/src/main/res/layout/linear_view_grid.xml" value="0.1" />
       </map>
     </option>

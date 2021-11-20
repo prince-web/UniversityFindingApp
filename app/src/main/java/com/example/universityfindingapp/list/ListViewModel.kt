@@ -9,19 +9,26 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 enum class UniversityApiStatus { LOADING, ERROR, DONE }
 class ListViewModel : ViewModel() {
 
     // The internal MutableLiveData String that stores the status of the most recent request
-    private val _response = MutableLiveData<String>()
+    private val _status = MutableLiveData<UniversityApiStatus>()
 
     // The external immutable LiveData for the request status String
-    val response: LiveData<String>
-        get() = _response
+    val status: LiveData<UniversityApiStatus>
+        get() = _status
+
+    private val _properties = MutableLiveData<List<UniversityProperty>>()
+
+    val property:LiveData<List<UniversityProperty>>
+    get() = _properties
+
+    private val _navigationToSelectedProperty = MutableLiveData<UniversityProperty>()
+
+    val navigationToSelectedProperty:LiveData<UniversityProperty>
+    get() = _navigationToSelectedProperty
 
     private var viewModelJob  = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
@@ -51,10 +58,17 @@ class ListViewModel : ViewModel() {
             var getPropertyDeferrd = UniversityApi.retrofitService.getProperties()
 
             try {
+                _status.value = UniversityApiStatus.LOADING
+                //This will run on a thread managed by retrofit
                 var listResult = getPropertyDeferrd.await()
-                _response.value = "Success: ${listResult.size} University Properties retrieved"
-            }catch (t:Throwable){
-                _response.value = "Failure" + t.message
+                _status.value = UniversityApiStatus.DONE
+                _properties.value = listResult
+                /*if (listResult.size > 0 ){
+
+                }*/
+            }catch (e:Exception){
+                _status.value = UniversityApiStatus.ERROR
+                _properties.value = ArrayList()
             }
         }
 
@@ -65,5 +79,13 @@ class ListViewModel : ViewModel() {
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
+    }
+
+    fun displayPropertyDetails(universityProperty: UniversityProperty){
+        _navigationToSelectedProperty.value = universityProperty
+    }
+
+    fun displayPropertyDetailsComplete(){
+        _navigationToSelectedProperty.value = null
     }
 }

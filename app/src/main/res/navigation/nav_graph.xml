@@ -19,5 +19,11 @@
         android:id="@+id/detailFragment"
         android:name="com.example.universityfindingapp.details.DetailFragment"
         android:label="DetailFragment"
-        tools:layout="@layout/fragment_detail"/>
+        tools:layout="@layout/fragment_detail">
+
+        <argument
+            android:name="selectedProperty"
+            app:argType="com.example.universityfindingapp.network.UniversityProperty"/>
+    </fragment>
+
 </navigation>

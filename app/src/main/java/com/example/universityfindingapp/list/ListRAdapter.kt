@@ -8,8 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.universityfindingapp.databinding.LinearViewGridBinding
 import com.example.universityfindingapp.network.UniversityProperty
 
-class ListRAdapter{/*(val onClickListener: OnClickListener) :
-    ListAdapter<UniversityProperty, ListRAdapter.UniversityPropertyViewHolder>(DiffCallback) {
+class ListRAdapter(private val onClickListener: OnClickListener) :ListAdapter<UniversityProperty, ListRAdapter.UniversityPropertyViewHolder>(DiffCallback) {
 
     class UniversityPropertyViewHolder(private var binding: LinearViewGridBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -31,7 +30,7 @@ class ListRAdapter{/*(val onClickListener: OnClickListener) :
             oldItem: UniversityProperty,
             newItem: UniversityProperty
         ): Boolean {
-            return oldItem.name == newItem.name
+            return oldItem.collegeName == newItem.collegeName
         }
     }
 
@@ -49,13 +48,13 @@ class ListRAdapter{/*(val onClickListener: OnClickListener) :
             onClickListener.onClick(universityProperty)
         }
         holder.bind(universityProperty)
-    }*/
-
+    }
+    class OnClickListener(val clickListener: (universityProperty: UniversityProperty) -> Unit) {
+        fun onClick(universityProperty: UniversityProperty) = clickListener(universityProperty)
+    }
 
 }
 
-/*class OnClickListener(val clickListener: (universityProperty: UniversityProperty) -> Unit) {
-    fun onClick(universityProperty: UniversityProperty) = clickListener(universityProperty)
-}*/
+
 
 
