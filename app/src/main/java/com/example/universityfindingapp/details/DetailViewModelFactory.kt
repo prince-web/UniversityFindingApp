@@ -9,7 +9,6 @@ import java.lang.IllegalArgumentException
 class DetailViewModelFactory(
     private val universityProperty: UniversityProperty,
     private val application: Application): ViewModelProvider.Factory {
-    @Suppress("unchecked_cast")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(DetailViewModel::class.java)){
             return DetailViewModel(universityProperty,application)as T

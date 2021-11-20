@@ -69,7 +69,7 @@ class ListViewModel : ViewModel() {
                 }*/
             }catch (e:Exception){
                 _status.value = UniversityApiStatus.ERROR
-                _properties.value = ArrayList()
+                //_properties.value = ArrayList()
             }
         }
 
