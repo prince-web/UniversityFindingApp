@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.universityfindingapp.network.UniversityApi
+import com.example.universityfindingapp.network.UniversityApiFilter
 import com.example.universityfindingapp.network.UniversityProperty
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -49,13 +50,13 @@ class ListViewModel : ViewModel() {
 //    get() = _navigationToSelectedProperty
 
     init {
-        getUniversityListProperties()
+        getUniversityListProperties(UniversityApiFilter.SHOW_INDIA)
     }
 
-    private fun getUniversityListProperties() {
+    private fun getUniversityListProperties(filter: UniversityApiFilter) {
 
         coroutineScope.launch {
-            var getPropertyDeferrd = UniversityApi.retrofitService.getProperties()
+            var getPropertyDeferrd = UniversityApi.retrofitService.getProperties(filter.value)
 
             try {
                 _status.value = UniversityApiStatus.LOADING
@@ -87,5 +88,9 @@ class ListViewModel : ViewModel() {
 
     fun displayPropertyDetailsComplete(){
         _navigationToSelectedProperty.value = null
+    }
+
+    fun updateFilter(filter:UniversityApiFilter){
+        getUniversityListProperties(filter)
     }
 }

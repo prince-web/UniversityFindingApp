@@ -1,17 +1,14 @@
 package com.example.universityfindingapp.list
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.universityfindingapp.R
 import com.example.universityfindingapp.databinding.FragmentListBinding
-import com.example.universityfindingapp.databinding.LinearViewGridBinding
+import com.example.universityfindingapp.network.UniversityApiFilter
 
 
 class ListFragment : Fragment() {
@@ -44,6 +41,24 @@ class ListFragment : Fragment() {
             }
         })
 
+        setHasOptionsMenu(true)
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.overflow_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        viewModel.updateFilter(
+            when (item.itemId) {
+                R.id.show_India_menu -> UniversityApiFilter.SHOW_INDIA
+                R.id.show_australia_menu -> UniversityApiFilter.SHOW_AUSTRALIA
+                else ->UniversityApiFilter.SHOW_INDIA
+
+            }
+        )
+        return true
     }
 }
